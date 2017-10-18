@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Elements - </title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script src="assets/js/jquery.min.js"></script>
+		<script type="text/javascript">
+		function googleTranslateElementInit() {
+			new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,da', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+		}
+
+		if(typeof(Storage) != "undefined"){
+				if(sessionStorage.breadcrumb){
+						//this is how you retrieve the breadcrumb from the storage
+						if(sessionStorage.breadcrumb.indexOf('Form') == -1){
+							var breadcrumb = sessionStorage.breadcrumb;
+						 	sessionStorage.breadcrumb = breadcrumb + " >> Form";
+						}else{
+							var breadcrumb = sessionStorage.breadcrumb.split('Form');
+						 	sessionStorage.breadcrumb = breadcrumb[0] + "Form";
+						}
+
+				} else {
+					 sessionStorage.breadcrumb = "Form";
+				}
+				setTimeout(function(){$('#form-breadcrumb').html(sessionStorage.breadcrumb)}, 1000);
+		}
+
+			function ajaxSubmit(){
+				var url = $('#myForm').attr("action");
+		    var formData = $('#myForm').serializeArray();
+
+		    $.post(url, formData).done(function (data) {
+					console.log("Response =>", data);
+					$("#demo-fname-error, #demo-lname-error, #demo-email-error, #demo-password-error, #demo-tel-error, #demo-address-error").html('');
+		        if(data == "Name is required"){
+							$("#demo-fname-error").html('<i class="fa fa-times-circle-o"></i> '+data);
+						}else if (data == "Only letters are allowed in name") {
+							$("#demo-fname-error").html('<i class="fa fa-times-circle-o"></i> '+data);
+						}else if (data == "Last name is required") {
+							$("#demo-lname-error").html('<i class="fa fa-times-circle-o"></i> '+data);
+						}else if (data == "Only letters are allowed in last name") {
+							$("#demo-lname-error").html('<i class="fa fa-times-circle-o"></i> '+data);
+						}else if (data == "Email is required") {
+							$("#demo-email-error").html('<i class="fa fa-times-circle-o"></i> '+data);
+						}else if (data == "Invalid email format") {
+							$("#demo-email-error").html('<i class="fa fa-times-circle-o"></i> '+data);
+						}else if (data == "Password is required") {
+							$("#demo-password-error").html('<i class="fa fa-times-circle-o"></i> '+data);
+						}else if (data == "Telephone is required") {
+							$("#demo-tel-error").html('<i class="fa fa-times-circle-o"></i> '+data);
+						}else if (data == "invalid phone fromat") {
+							$("#demo-tel-error").html('<i class="fa fa-times-circle-o"></i> '+data);
+						}else if (data == "Address is required") {
+							$("#demo-address-error").html('<i class="fa fa-times-circle-o"></i> '+data);
+						}else {
+							alert("Data submitted successfully");
+						}
+		    });
+				// var x = document.forms["myForm"]["demo-fname"].value;
+		    // if (x == "") {
+		    //     alert("Name must be filled out");
+		    //     return false;
+		    // }
+				// alert(x);
+				return false;
+			}
+		</script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+
+									<ul class="icons">
+										<li id="form-breadcrumb"></li>
+									</ul>
+									<div id="google_translate_element"></div>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Form</h1>
+									</header>
+
+									<!-- Content -->
+									<form name="myForm" id="myForm" method="post" action="submitData.php" onsubmit="return ajaxSubmit();">
+										<div class="row uniform">
+											<div class="6u$ 12u$(xsmall)">
+												<label class="control-label" id="demo-fname-error" style="color:red;" ></label>
+												<input type="text" name="demo-fname" id="demo-fname" value="" placeholder="First Name" required/>
+											</div>
+											<div class="6u$ 12u$(xsmall)">
+												<label class="control-label" id="demo-lname-error" style=" color:red;" ></label>
+												<input type="text" name="demo-lname" id="demo-lname" value="" placeholder="Last Name" />
+											</div>
+
+
+											<div class="6u$ 12u$(xsmall)">
+												<label class="control-label" id="demo-email-error" style=" color:red;" ></label>
+												<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" required />
+											</div>
+											<div class="6u$ 12u$(xsmall)">
+												<label class="control-label" id="demo-password-error" style=" color:red;" ></label>
+												<input type="password" name="demo-password" id="demo-password" value="" placeholder="Password" required />
+											</div>
+
+											<div class="6u$ 12u$(xsmall)">
+												<label class="control-label" id="demo-tel-error" style=" color:red;" ></label>
+												<input type="tel" name="demo-tel" id="demo-tel" value="" placeholder="Contact No" />
+											</div>
+
+											<div class="6u$ 12u$(xsmall)">
+												<label>Gender</label>
+											</div>
+											<div class="4u 12u$(small)">
+												<input type="radio" id="demo-gender-male" name="demo-gender" checked>
+												<label for="demo-gender-male">Male</label>
+											</div>
+											<div class="4u 12u$(small)">
+												<input type="radio" id="demo-gender-female" name="demo-gender">
+												<label for="demo-gender-female">Female</label>
+											</div>
+											<!-- Break -->
+											<div class="6u$ 12u$(xsmall)">
+												<label class="control-label" id="demo-address-error" style=" color:red;" ></label>
+												<textarea name="demo-address" id="demo-address" placeholder="Enter your current address" rows="6"></textarea>
+											</div>
+											<!-- Break -->
+											<div class="12u$">
+												<ul class="actions">
+													<li><input type="submit" name="submit" value="Submit" class="special" /></li>
+													<li><input type="reset" value="Reset" /></li>
+												</ul>
+											</div>
+										</div>
+									</form>
+
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a class="icon fa-home" href="index.html"> Home</a></li>
+										<li><a class="icon fa-book" href="generic.html"> About</a></li>
+										<li><a class="icon fa-edit" href="elements.html"> Form</a></li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Ante interdum</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+									<ul class="contact">
+										<li class="fa-envelope-o"><a href="#">information@untitled.tld</a></li>
+										<li class="fa-phone">(000) 000-0000</li>
+										<li class="fa-home">1234 Somewhere Road #8254<br />
+										Nashville, TN 00000-0000</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<!-- <script src="assets/js/jquery.min.js"></script> -->
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+			<script type="text/javascript" src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+	</body>
+</html>
